@@ -22,8 +22,7 @@ import java.util.TimerTask;
 public class Controller implements Initializable {
     @FXML
     public WebView webView;
-    String dupa = Main.map;
-    int c = 0;
+    ArrayList<AgentController> agentList = new ArrayList<>();
     @FXML
     private Button button1;
 
@@ -34,7 +33,6 @@ public class Controller implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println(Map.getHtml());
                 Timer timer = new Timer();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
@@ -43,11 +41,11 @@ public class Controller implements Initializable {
                             @Override
                             public void run() {
                                 webView.getEngine().loadContent(Map.getHtml());
-                                c++;
+                                System.out.println("generate");
                             }
                         });
                     }
-                }, 0, 1000);
+                }, 0, 500);
             }
         });
         startAgents();
@@ -61,8 +59,8 @@ public class Controller implements Initializable {
         jade.wrapper.AgentContainer mainContainer = rt.createMainContainer(profile);
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
         try {
-            ArrayList<AgentController> agentList = new ArrayList<>();
-            agentList.add(mainContainer.createNewAgent("test", mars.SimpleAgent.class.getName(), new WebView[]{webView}));
+
+            agentList.add(mainContainer.createNewAgent("test", mars.SimpleAgent.class.getName(), new Object[0]));
 //            agentList.add(mainContainer.createNewAgent("s1", mars.BookSellerAgent.class.getName(), new Object[0]));
 //            agentList.add(mainContainer.createNewAgent("s2", mars.BookSellerAgent.class.getName(), new Object[0]));
 //            agentList.add(mainContainer.createNewAgent("s3", mars.BookSellerAgent.class.getName(), new Object[0]));
@@ -77,8 +75,11 @@ public class Controller implements Initializable {
         }
     }
 
-    public void destroy() {
+    public void destroy() throws StaleProxyException {
         System.out.println("papa");
+        for (int i = 0, l = agentList.size(); i < l; i++) {
+            agentList.get(i).kill();
+        }
     }
 
     class SayHello extends TimerTask {
