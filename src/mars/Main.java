@@ -8,7 +8,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static String map = "ja jebie";
     private Controller ctrl;
+
+    public static void setMapString(String str) {
+        map = str;
+    }
 
     public static void main(String[] args) {
         launch(args);
@@ -25,7 +30,7 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 800, 800));
         primaryStage.show();
 
-
+        new Map();
     }
 
     @Override
