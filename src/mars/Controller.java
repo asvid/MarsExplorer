@@ -33,6 +33,8 @@ public class Controller implements Initializable {
 
             @Override
             public void handle(ActionEvent event) {
+
+                startAgents();
                 Timer timer = new Timer();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
@@ -45,10 +47,9 @@ public class Controller implements Initializable {
                             }
                         });
                     }
-                }, 0, 500);
+                }, 0, 100);
             }
         });
-        startAgents();
 
     }
 
@@ -60,7 +61,7 @@ public class Controller implements Initializable {
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
         try {
 
-            agentList.add(mainContainer.createNewAgent("test", mars.SimpleAgent.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("test", Exolorer.class.getName(), new Object[0]));
 //            agentList.add(mainContainer.createNewAgent("s1", mars.BookSellerAgent.class.getName(), new Object[0]));
 //            agentList.add(mainContainer.createNewAgent("s2", mars.BookSellerAgent.class.getName(), new Object[0]));
 //            agentList.add(mainContainer.createNewAgent("s3", mars.BookSellerAgent.class.getName(), new Object[0]));
