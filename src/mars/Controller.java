@@ -14,15 +14,13 @@ import javafx.scene.control.Button;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Controller implements Initializable {
+    public static ArrayList<AgentController> agentList = new ArrayList<>();
+    public static HashMap<String, int[]> agentMapList = new HashMap<>();
     @FXML
     public WebView webView;
-    ArrayList<AgentController> agentList = new ArrayList<>();
     @FXML
     private Button button1;
 
@@ -60,15 +58,14 @@ public class Controller implements Initializable {
         jade.wrapper.AgentContainer mainContainer = rt.createMainContainer(profile);
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
         try {
-
-            agentList.add(mainContainer.createNewAgent("test", Exolorer.class.getName(), new Object[0]));
-//            agentList.add(mainContainer.createNewAgent("s1", mars.BookSellerAgent.class.getName(), new Object[0]));
-//            agentList.add(mainContainer.createNewAgent("s2", mars.BookSellerAgent.class.getName(), new Object[0]));
-//            agentList.add(mainContainer.createNewAgent("s3", mars.BookSellerAgent.class.getName(), new Object[0]));
-//            agentList.add(mainContainer.createNewAgent("b1", mars.BookBuyerAgent.class.getName(), new String[]{"a", "b"}));
+            agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
+//          agentList.add(mainContainer.createNewAgent("b1", mars.BookBuyerAgent.class.getName(), new String[]{"a", "b"}));
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
                 agentList.get(i).start();
+                agentMapList.put(agentList.get(i).getName(), new int[]{0, 0});
             }
 
         } catch (StaleProxyException e) {
