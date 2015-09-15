@@ -66,7 +66,7 @@ public class Controller implements Initializable {
                 agentList.get(i).start();
 
             }
-            agentMapList.put(agentList.get(0).getName(), new int[]{20, 40});
+            agentMapList.put(agentList.get(0).getName(), new int[]{15, 15});
             //agentMapList.put(agentList.get(1).getName(), new int[]{20, 20});
             //agentMapList.put(agentList.get(2).getName(), new int[]{10, 10});
 
