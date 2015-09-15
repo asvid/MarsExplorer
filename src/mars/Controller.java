@@ -41,7 +41,6 @@ public class Controller implements Initializable {
                             @Override
                             public void run() {
                                 webView.getEngine().loadContent(Map.getHtml());
-                                System.out.println("generate");
                             }
                         });
                     }
@@ -59,14 +58,17 @@ public class Controller implements Initializable {
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
         try {
             agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
-            agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
-            agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
+            //agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
+            //agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
 //          agentList.add(mainContainer.createNewAgent("b1", mars.BookBuyerAgent.class.getName(), new String[]{"a", "b"}));
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
                 agentList.get(i).start();
-                agentMapList.put(agentList.get(i).getName(), new int[]{0, 0});
+
             }
+            agentMapList.put(agentList.get(0).getName(), new int[]{20, 40});
+            //agentMapList.put(agentList.get(1).getName(), new int[]{20, 20});
+            //agentMapList.put(agentList.get(2).getName(), new int[]{10, 10});
 
         } catch (StaleProxyException e) {
             e.printStackTrace();
