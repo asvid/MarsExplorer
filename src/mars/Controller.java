@@ -28,6 +28,8 @@ public class Controller implements Initializable {
     private Button button1;
     @FXML
     private Button stop;
+    @FXML
+    private Button step;
 
     public void appendText(String str) {
         log.getEngine().loadContent(Logger.getHtml());
@@ -70,6 +72,12 @@ public class Controller implements Initializable {
                 }
             }
         });
+        step.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
 
     }
 
@@ -87,11 +95,8 @@ public class Controller implements Initializable {
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
                 agentList.get(i).start();
-
+                agentMapList.put(agentList.get(i).getName(), new int[]{21, 21});
             }
-            agentMapList.put(agentList.get(0).getName(), new int[]{15, 15});
-            agentMapList.put(agentList.get(1).getName(), new int[]{20, 20});
-            agentMapList.put(agentList.get(2).getName(), new int[]{10, 10});
 
         } catch (StaleProxyException e) {
             e.printStackTrace();

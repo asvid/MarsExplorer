@@ -32,7 +32,11 @@
             <children>
                 <Button fx:id="button1" mnemonicParsing="false" prefHeight="51.0" prefWidth="97.0" text="start"
                         textAlignment="CENTER"/>
-                <Button fx:id="stop" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="stop" GridPane.rowIndex="1"/>
+                <Button fx:id="stop" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="stop"
+                        GridPane.rowIndex="1"/>
+
+                <Button fx:id="step" mnemonicParsing="false" prefHeight="42.0" prefWidth="100.0" text="step"
+                        GridPane.rowIndex="2"/>
             </children>
         </GridPane>
     </children>
