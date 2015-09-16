@@ -60,7 +60,6 @@ public class Controller implements Initializable {
             agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
-//          agentList.add(mainContainer.createNewAgent("b1", mars.BookBuyerAgent.class.getName(), new String[]{"a", "b"}));
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
                 agentList.get(i).start();

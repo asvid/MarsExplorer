@@ -8,11 +8,9 @@ import java.util.Random;
 public class Exolorer extends Agent {
 
     private final Random random = new Random();
-
+    public boolean hasSample = false;
     private Double motherShipDirection;
     private Double motherShipDistance;
-
-    private boolean hasSample = false;
 
     @Override
     protected void setup() {
@@ -35,8 +33,11 @@ public class Exolorer extends Agent {
                 ExplorerInfo explorerInfo = Map.move(getAID().getName(), direction);
                 motherShipDistance = explorerInfo.distance;
                 motherShipDirection = explorerInfo.angle;
-                if (!hasSample)
-                    hasSample = explorerInfo.foundMineral;
+                if (!hasSample && explorerInfo.foundMineral){
+                    hasSample = true;
+                    Map.collectSample(getAID().getName());
+                }
+
                 //System.out.println("mapinfo: " + getAID().getName() + " : " + mapInfo[0] + " / " + mapInfo[1]);
             }
 
