@@ -58,8 +58,8 @@ public class Controller implements Initializable {
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
         try {
             agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
-            //agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
-            //agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
 //          agentList.add(mainContainer.createNewAgent("b1", mars.BookBuyerAgent.class.getName(), new String[]{"a", "b"}));
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
@@ -67,8 +67,8 @@ public class Controller implements Initializable {
 
             }
             agentMapList.put(agentList.get(0).getName(), new int[]{15, 15});
-            //agentMapList.put(agentList.get(1).getName(), new int[]{20, 20});
-            //agentMapList.put(agentList.get(2).getName(), new int[]{10, 10});
+            agentMapList.put(agentList.get(1).getName(), new int[]{20, 20});
+            agentMapList.put(agentList.get(2).getName(), new int[]{10, 10});
 
         } catch (StaleProxyException e) {
             e.printStackTrace();
