@@ -21,19 +21,26 @@ public class Controller implements Initializable {
     public static HashMap<String, int[]> agentMapList = new HashMap<>();
     @FXML
     public WebView webView;
+    Timer timer = new Timer();
+    @FXML
+    private WebView log;
     @FXML
     private Button button1;
+    @FXML
+    private Button stop;
+
+    public void appendText(String str) {
+        log.getEngine().loadContent(Logger.getHtml());
+    }
 
     @Override // This method is called by the FXMLLoader when initialization is complete
     public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
         assert button1 != null : "fx:id=\"myButton\" was not injected: check your FXML file 'simple.fxml'.";
         button1.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
-
                 startAgents();
-                Timer timer = new Timer();
+                timer = new Timer();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
@@ -41,10 +48,26 @@ public class Controller implements Initializable {
                             @Override
                             public void run() {
                                 webView.getEngine().loadContent(Map.getHtml());
+                                appendText("asd");
                             }
                         });
                     }
                 }, 0, 100);
+            }
+        });
+        stop.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                timer.purge();
+                timer.cancel();
+                agentList.clear();
+                agentMapList.clear();
+                Logger.reset();
+                try {
+                    destroy();
+                } catch (StaleProxyException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -56,6 +79,7 @@ public class Controller implements Initializable {
         Profile profile = new ProfileImpl(null, 1200, null);
         jade.wrapper.AgentContainer mainContainer = rt.createMainContainer(profile);
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
+        log.getEngine().loadContent("");
         try {
             agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));

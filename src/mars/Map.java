@@ -137,7 +137,6 @@ public class Map {
         boolean founded = false;
         int[] curPos = Controller.agentMapList.get(name);
         founded = mapArray[curPos[1]][curPos[0]] == Fields.MINERAL;
-        System.out.println("Sample: " + founded + " / " + curPos + " / " + mapArray[curPos[1]][curPos[0]]);
         return founded;
     }
 
@@ -148,5 +147,5 @@ public class Map {
 
     private enum Fields {EMPTY, MOTHERSHIP, EXPLORER, MINERAL}
 
-    public static enum Direction {N, E, S, direction, W}
+    public static enum Direction {N, E, S, W}
 }
