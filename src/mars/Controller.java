@@ -1,5 +1,6 @@
 package mars;
 
+import jade.core.Agent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -54,7 +55,7 @@ public class Controller implements Initializable {
                             }
                         });
                     }
-                }, 0, 100);
+                }, 0, 500);
             }
         });
         stop.setOnAction(new EventHandler<ActionEvent>() {
@@ -75,12 +76,45 @@ public class Controller implements Initializable {
         step.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                for (int i = 0, l = agentList.size(); i < l; i++) {
-
-                }
+                startStepAgents();
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                webView.getEngine().loadContent(Map.getHtml());
+                                appendText("asd");
+                            }
+                        });
+                    }
+                }, 0, 100);
             }
         });
 
+    }
+
+    private void startStepAgents() {
+        Runtime rt = Runtime.instance();
+        rt.setCloseVM(true);
+        Profile profile = new ProfileImpl(null, 1200, null);
+        jade.wrapper.AgentContainer mainContainer = rt.createMainContainer(profile);
+        ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
+        log.getEngine().loadContent("");
+        try {
+            agentList.add(mainContainer.createNewAgent("ex1 stepper", ExolorerSteper.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("ex2 stepper", ExolorerSteper.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("ex3 stepper", ExolorerSteper.class.getName(), new Object[0]));
+
+            for (int i = 0, l = agentList.size(); i < l; i++) {
+                agentList.get(i).start();
+                agentMapList.put(agentList.get(i).getName(), new int[]{21, 21});
+            }
+
+        } catch (StaleProxyException e) {
+            e.printStackTrace();
+        }
     }
 
     private void startAgents() {
@@ -94,10 +128,12 @@ public class Controller implements Initializable {
             agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
+            agentList.add(mainContainer.createNewAgent("motherShip", MotherShip.class.getName(), new Object[0]));
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
                 agentList.get(i).start();
-                agentMapList.put(agentList.get(i).getName(), new int[]{21, 21});
+                if(!agentList.get(i).getName().contains("motherShip"))
+                    agentMapList.put(agentList.get(i).getName(), new int[]{21, 21});
             }
 
         } catch (StaleProxyException e) {
