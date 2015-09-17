@@ -21,6 +21,7 @@ public class MotherShip extends Agent {
 
     public AID[] explorers;
     private Agent self = this;
+    private int samplesCounter = 0;
 
     @Override
     protected void setup() {
@@ -61,6 +62,8 @@ public class MotherShip extends Agent {
                 reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                 myAgent.send(reply);
                 Logger.log(getAID().getLocalName() + " pobiera minerał od: " + msg.getSender().getLocalName());
+                samplesCounter ++;
+                Logger.log(getAID().getLocalName() + " ma " + samplesCounter + " minerałów");
             }
             else {
                 block();

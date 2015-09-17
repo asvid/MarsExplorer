@@ -24,7 +24,7 @@ public class Logger {
     private static String log = new String("");
 
     public static void log(String str) {
-        log += ("<br>" + str);
+        log = (str+"<br>") + log;
     }
 
     public static String getHtml() {
