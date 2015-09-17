@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static String map = "ja jebie";
     private Controller ctrl;
 
     public static void main(String[] args) {
