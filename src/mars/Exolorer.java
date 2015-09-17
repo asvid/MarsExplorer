@@ -33,8 +33,6 @@ public class Exolorer extends Agent {
             direction = Map.Direction.values()[random.nextInt(Map.Direction.values().length)];
         }
         ExplorerInfo explorerInfo = Map.move(getAID().getName(), direction);
-        motherShipDistance = explorerInfo.distance;
-        motherShipDirection = explorerInfo.angle;
         if (!hasSample && explorerInfo.foundMineral) {
             hasSample = true;
             Map.collectSample(getAID().getName());
@@ -108,7 +106,6 @@ public class Exolorer extends Agent {
 
                 try {
                     ExplorerInfo info = (ExplorerInfo) msg.getContentObject();
-                    hasSample = info.foundMineral;
                     motherShipDirection = info.angle;
                     motherShipDistance = info.distance;
                 } catch (UnreadableException e) {
