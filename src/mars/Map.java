@@ -104,7 +104,7 @@ public class Map {
         int[] curPos = Controller.agentMapList.get(name);
         switch (d) {
             case E:
-                if (curPos[0] < mapArray.length)
+                if (curPos[0] < mapArray.length - 1)
                     curPos[0] += 1;
                 break;
             case W:
@@ -116,11 +116,10 @@ public class Map {
                     curPos[1] -= 1;
                 break;
             case S:
-                if (curPos[1] < mapArray.length)
+                if (curPos[1] < mapArray.length - 1)
                     curPos[1] += 1;
                 break;
         }
-        ;
 
         Double angle = Math.toDegrees(Math.atan2(curPos[1] - middle, curPos[0] - middle));
         angle += 90;

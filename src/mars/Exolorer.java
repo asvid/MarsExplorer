@@ -2,6 +2,7 @@ package mars;
 
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 
 import java.util.Random;
@@ -58,22 +59,27 @@ public class Exolorer extends Agent {
     @Override
     protected void setup() {
         System.out.printf("Hello world, from %s\n", getAID().getName());
+//
+//        addBehaviour(new TickerBehaviour(this, 200) {
+//            protected void onTick() {
+//                if (hasSample && motherShipDistance == 0) {
+//                    hasSample = false;
+//                    move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
+//                    Logger.log(getAID().getLocalName() + " : wrócił do bazy");
+//                } else if (hasSample && motherShipDistance > 0) {
+//                    move(goToMothership());
+//                    Logger.log(getAID().getLocalName() + " : wracam do bazy z minerałem");
+//                } else {
+//                    move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
+//                    Logger.log(getAID().getLocalName() + " : random move");
+//                }
+//            }
+//        });
 
-        addBehaviour(new TickerBehaviour(this, 200) {
-            protected void onTick() {
-                if (hasSample && motherShipDistance == 0) {
-                    hasSample = false;
-                    move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
-                    Logger.log(getAID().getLocalName() + " : wrócił do bazy");
-                } else if (hasSample && motherShipDistance > 0) {
-                    move(goToMothership());
-                    Logger.log(getAID().getLocalName() + " : wracam do bazy z minerałem");
-                } else {
-                    move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
-                    Logger.log(getAID().getLocalName() + " : random move");
-                }
-            }
-        });
+    }
+
+    public void runStep(){
+        addBehaviour(new Step());
     }
 
     @Override
@@ -81,7 +87,7 @@ public class Exolorer extends Agent {
         System.out.printf("Taking down agent, from %s\n", getAID().getName());
     }
 
-    class Step extends Behaviour {
+    class Step extends OneShotBehaviour {
 
         @Override
         public void action() {
@@ -96,11 +102,6 @@ public class Exolorer extends Agent {
                 move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
                 Logger.log(getAID().getLocalName() + " : random move");
             }
-        }
-
-        @Override
-        public boolean done() {
-            return false;
         }
     }
 }

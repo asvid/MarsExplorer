@@ -75,7 +75,9 @@ public class Controller implements Initializable {
         step.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                for (int i = 0, l = agentList.size(); i < l; i++) {
 
+                }
             }
         });
 
