@@ -33,11 +33,7 @@ public class Exolorer extends Agent {
             direction = Map.Direction.values()[random.nextInt(Map.Direction.values().length)];
         }
         ExplorerInfo explorerInfo = Map.move(getAID().getName(), direction);
-        if (!hasSample && explorerInfo.foundMineral) {
-            hasSample = true;
-            Map.collectSample(getAID().getName());
-            Logger.log(getAID().getLocalName() + " : zmalazł minerał");
-        }
+
         prev = direction;
 
         ACLMessage order = new ACLMessage(ACLMessage.REQUEST);
@@ -78,7 +74,7 @@ public class Exolorer extends Agent {
         System.out.printf("Hello world, from %s\n", getAID().getLocalName());
         addBehaviour(new UnloadMineral());
         addBehaviour(new LookAround());
-        addBehaviour(new Work(this, 200));
+        addBehaviour(new Work(this, 1000));
         addBehaviour(new Ping());
     }
 
@@ -108,12 +104,11 @@ public class Exolorer extends Agent {
                     ExplorerInfo info = (ExplorerInfo) msg.getContentObject();
                     motherShipDirection = info.angle;
                     motherShipDistance = info.distance;
-                } catch (UnreadableException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    System.out.println(getAID().getLocalName() + " ping:" + msg.getContentObject().toString());
+                    if (!hasSample && info.foundMineral) {
+                        hasSample = true;
+                        Map.collectSample(getAID().getName());
+                        Logger.log(getAID().getLocalName() + " : zmalazł minerał");
+                    }
                 } catch (UnreadableException e) {
                     e.printStackTrace();
                 }
@@ -161,7 +156,7 @@ public class Exolorer extends Agent {
             template.addServices(sd);
             try {
                 DFAgentDescription[] result = DFService.search(self, template);
-                System.out.println("Found the following seller agents:");
+                System.out.println("Znaleziona baza:");
                 motherShip = new AID[result.length];
                 for (int i = 0; i < result.length; ++i) {
                     motherShip[i] = result[i].getName();

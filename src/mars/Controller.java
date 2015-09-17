@@ -96,25 +96,7 @@ public class Controller implements Initializable {
     }
 
     private void startStepAgents() {
-        Runtime rt = Runtime.instance();
-        rt.setCloseVM(true);
-        Profile profile = new ProfileImpl(null, 1200, null);
-        jade.wrapper.AgentContainer mainContainer = rt.createMainContainer(profile);
-        ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
-        log.getEngine().loadContent("");
-        try {
-            agentList.add(mainContainer.createNewAgent("ex1 stepper", ExolorerSteper.class.getName(), new Object[0]));
-            agentList.add(mainContainer.createNewAgent("ex2 stepper", ExolorerSteper.class.getName(), new Object[0]));
-            agentList.add(mainContainer.createNewAgent("ex3 stepper", ExolorerSteper.class.getName(), new Object[0]));
 
-            for (int i = 0, l = agentList.size(); i < l; i++) {
-                agentList.get(i).start();
-                agentMapList.put(agentList.get(i).getName(), new int[]{21, 21});
-            }
-
-        } catch (StaleProxyException e) {
-            e.printStackTrace();
-        }
     }
 
     private void startAgents() {

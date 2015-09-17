@@ -98,7 +98,7 @@ public class MotherShip extends Agent {
             template.addServices(sd);
             try {
                 DFAgentDescription[] result = DFService.search(self, template);
-                System.out.println("Found the following seller agents:");
+                System.out.println("Znalezione Exploratory: ");
                 explorers = new AID[result.length];
                 for (int i = 0; i < result.length; ++i) {
                     explorers[i] = result[i].getName();
