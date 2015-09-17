@@ -125,10 +125,10 @@ public class Controller implements Initializable {
         ProfileImpl pContainer = new ProfileImpl(null, 1200, null);
         log.getEngine().loadContent("");
         try {
+            agentList.add(mainContainer.createNewAgent("motherShip", MotherShip.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex1", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex2", Exolorer.class.getName(), new Object[0]));
             agentList.add(mainContainer.createNewAgent("ex3", Exolorer.class.getName(), new Object[0]));
-            agentList.add(mainContainer.createNewAgent("motherShip", MotherShip.class.getName(), new Object[0]));
 
             for (int i = 0, l = agentList.size(); i < l; i++) {
                 agentList.get(i).start();

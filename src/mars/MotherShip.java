@@ -18,7 +18,7 @@ public class MotherShip extends Agent {
 
     @Override
     protected void setup() {
-        System.out.printf("Hello world, from mothership: %s\n", getAID());
+        System.out.printf("Hello world, from mothership: %s\n", getAID().getLocalName());
 // Register the book-selling service in the yellow pages
         DFAgentDescription dfd = new DFAgentDescription();
         dfd.setName(getAID());
@@ -44,14 +44,16 @@ public class MotherShip extends Agent {
 
     class TakeMineral extends CyclicBehaviour {
         public void action() {
-            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.PROPOSE);
             ACLMessage msg = myAgent.receive(mt);
             if (msg != null) {
                 // ACCEPT_PROPOSAL Message received. Process it
                 String title = msg.getContent();
                 ACLMessage reply = msg.createReply();
                 System.out.println("mothership: "+title + " / " + reply);
+                reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
                 myAgent.send(reply);
+                Logger.log(getAID().getLocalName() + " pobiera minerał od: " + msg.getSender().getLocalName());
             }
             else {
                 block();

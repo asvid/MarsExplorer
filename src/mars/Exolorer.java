@@ -3,6 +3,7 @@ package mars;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.DFService;
@@ -10,6 +11,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 
 import java.util.Random;
 
@@ -68,53 +70,76 @@ public class Exolorer extends Agent {
     @Override
     protected void setup() {
         System.out.printf("Hello world, from %s\n", getAID().getLocalName());
+        addBehaviour(new UnloadMineral());
+        addBehaviour(new LookAround());
+        addBehaviour(new Work(this, 200));
+    }
 
-        addBehaviour(new OneShotBehaviour() {
-            @Override
-            public void action() {
-                DFAgentDescription template = new DFAgentDescription();
-                ServiceDescription sd = new ServiceDescription();
-                sd.setType("book-selling");
-                template.addServices(sd);
-                try {
-                    DFAgentDescription[] result = DFService.search(self, template);
-                    System.out.println("Found the following seller agents:");
-                    motherShip = new AID[result.length];
-                    for (int i = 0; i < result.length; ++i) {
-                        motherShip[i] = result[i].getName();
-                        System.out.println(motherShip[i].getName());
-                    }
-                } catch (FIPAException fe) {
-                    fe.printStackTrace();
-                }
+    class UnloadMineral extends CyclicBehaviour {
+        public void action() {
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.ACCEPT_PROPOSAL);
+            ACLMessage msg = myAgent.receive(mt);
+            if (msg != null) {
+                ACLMessage reply = msg.createReply();
+                reply.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                myAgent.send(reply);
+                Logger.log(getAID().getLocalName() + " rozładował minerał w: " + msg.getSender().getLocalName());
+                hasSample = false;
             }
-        });
-        addBehaviour(new TickerBehaviour(this, 200) {
-            protected void onTick() {
-                if (hasSample && motherShipDistance == 0) {
-                    hasSample = false;
-                    move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
-                    Logger.log(getAID().getLocalName() + " : wrócił do bazy");
-
-                    ACLMessage order = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-                    order.addReceiver(motherShip[0]);
-                    order.setContent("mam minerał");
-                    order.setConversationId("sample-delivery");
-                    order.setReplyWith("delivery" + System.currentTimeMillis());
-                    myAgent.send(order);
-
-
-                } else if (hasSample && motherShipDistance > 0) {
-                    move(goToMothership());
-                    Logger.log(getAID().getLocalName() + " : wraca do bazy z minerałem");
-                } else {
-                    move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
-                    Logger.log(getAID().getLocalName() + " : szuka...");
-                }
+            else {
+                block();
             }
-        });
+        }
+    }
+
+    class Work extends TickerBehaviour{
+        public Work(Agent a, long period) {
+            super(a, period);
+        }
+
+        protected void onTick() {
+            if (hasSample && motherShipDistance == 0) {
+
+                move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
+                Logger.log(getAID().getLocalName() + " : wrócił do bazy");
+
+                ACLMessage order = new ACLMessage(ACLMessage.PROPOSE);
+                order.addReceiver(motherShip[0]);
+                order.setContent("mam minerał");
+                order.setConversationId("sample-delivery");
+                order.setReplyWith("delivery" + System.currentTimeMillis());
+                myAgent.send(order);
 
 
+            } else if (hasSample && motherShipDistance > 0) {
+                move(goToMothership());
+                Logger.log(getAID().getLocalName() + " : wraca do bazy z minerałem");
+            } else {
+                move(Map.Direction.values()[random.nextInt(Map.Direction.values().length)]);
+                Logger.log(getAID().getLocalName() + " : szuka...");
+            }
+        }
+    }
+
+    class LookAround extends OneShotBehaviour{
+        @Override
+        public void action() {
+            DFAgentDescription template = new DFAgentDescription();
+            ServiceDescription sd = new ServiceDescription();
+            sd.setType("sample-delivery");
+            template.addServices(sd);
+            try {
+                DFAgentDescription[] result = DFService.search(self, template);
+                System.out.println("Found the following seller agents:");
+                motherShip = new AID[result.length];
+                for (int i = 0; i < result.length; ++i) {
+                    motherShip[i] = result[i].getName();
+                    System.out.println(motherShip[i].getName());
+                }
+            } catch (FIPAException fe) {
+                fe.printStackTrace();
+            }
+        }
     }
 
     public void runStep(){
