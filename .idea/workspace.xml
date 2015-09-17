@@ -78,12 +78,12 @@
       <file leaf-file-name="Exolorer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mars/Exolorer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.21663442">
-              <caret line="74" column="42" selection-start-line="74" selection-start-column="42" selection-end-line="74" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.59381044">
+              <caret line="112" column="54" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3549#3550#0" expanded="true" />
-                <element signature="e#3589#3590#0" expanded="true" />
+                <element signature="e#4852#4853#0" expanded="true" />
+                <element signature="e#4892#4893#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,9 +103,22 @@
         <entry file="file://$PROJECT_DIR$/src/mars/MotherShip.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+              <caret line="78" column="88" selection-start-line="78" selection-start-column="88" selection-end-line="78" selection-end-column="88" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ExplorerInfo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/mars/ExplorerInfo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding>
+                <element signature="e#444#445#0" expanded="true" />
+                <element signature="e#502#503#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -125,7 +138,7 @@
         <entry file="file://$PROJECT_DIR$/src/mars/Map.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
+              <caret line="134" column="30" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -187,13 +200,13 @@
         <option value="$PROJECT_DIR$/src/utils/Drawer.java" />
         <option value="$PROJECT_DIR$/src/mars/SimpleAgent.java" />
         <option value="$PROJECT_DIR$/src/mars/MapExplorer.java" />
-        <option value="$PROJECT_DIR$/src/mars/ExplorerInfo.java" />
         <option value="$PROJECT_DIR$/src/mars/Logger.java" />
         <option value="$PROJECT_DIR$/src/mars/sample.fxml" />
-        <option value="$PROJECT_DIR$/src/mars/Map.java" />
         <option value="$PROJECT_DIR$/src/mars/Main.java" />
         <option value="$PROJECT_DIR$/src/mars/ExolorerSteper.java" />
         <option value="$PROJECT_DIR$/src/mars/Controller.java" />
+        <option value="$PROJECT_DIR$/src/mars/ExplorerInfo.java" />
+        <option value="$PROJECT_DIR$/src/mars/Map.java" />
         <option value="$PROJECT_DIR$/src/mars/MotherShip.java" />
         <option value="$PROJECT_DIR$/src/mars/Exolorer.java" />
       </list>
@@ -664,7 +677,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -672,14 +687,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/mars/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mars/sample.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1078,14 +1085,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/mars/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="19" selection-start-line="117" selection-start-column="19" selection-end-line="117" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mars/BookBuyerAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1120,10 +1119,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/mars/ExplorerInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#444#445#0" expanded="true" />
+            <element signature="e#502#503#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mars/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="134" column="30" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/mars/MotherShip.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="48" selection-start-line="68" selection-start-column="48" selection-end-line="68" selection-end-column="48" />
+          <caret line="78" column="88" selection-start-line="78" selection-start-column="88" selection-end-line="78" selection-end-column="88" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1132,12 +1150,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/mars/Exolorer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21663442">
-          <caret line="74" column="42" selection-start-line="74" selection-start-column="42" selection-end-line="74" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.59381044">
+          <caret line="112" column="54" selection-start-line="112" selection-start-column="54" selection-end-line="112" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3549#3550#0" expanded="true" />
-            <element signature="e#3589#3590#0" expanded="true" />
+            <element signature="e#4852#4853#0" expanded="true" />
+            <element signature="e#4892#4893#0" expanded="true" />
           </folding>
         </state>
       </provider>

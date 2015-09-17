@@ -12,6 +12,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import jade.lang.acl.UnreadableException;
 
 import java.util.Random;
 
@@ -40,6 +41,13 @@ public class Exolorer extends Agent {
             Logger.log(getAID().getLocalName() + " : zmalazł minerał");
         }
         prev = direction;
+
+        ACLMessage order = new ACLMessage(ACLMessage.REQUEST);
+        order.addReceiver(motherShip[0]);
+        order.setContent("ping");
+        order.setConversationId("sample-delivery");
+        order.setReplyWith("ping" + System.currentTimeMillis());
+        self.send(order);
     }
 
     public boolean goingBack(Map.Direction direction) {
@@ -73,6 +81,7 @@ public class Exolorer extends Agent {
         addBehaviour(new UnloadMineral());
         addBehaviour(new LookAround());
         addBehaviour(new Work(this, 200));
+        addBehaviour(new Ping());
     }
 
     class UnloadMineral extends CyclicBehaviour {
@@ -85,6 +94,32 @@ public class Exolorer extends Agent {
                 myAgent.send(reply);
                 Logger.log(getAID().getLocalName() + " rozładował minerał w: " + msg.getSender().getLocalName());
                 hasSample = false;
+            }
+            else {
+                block();
+            }
+        }
+    }
+    class Ping extends CyclicBehaviour {
+        public void action() {
+            MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+            ACLMessage msg = myAgent.receive(mt);
+            if (msg != null) {
+
+                try {
+                    ExplorerInfo info = (ExplorerInfo) msg.getContentObject();
+                    hasSample = info.foundMineral;
+                    motherShipDirection = info.angle;
+                    motherShipDistance = info.distance;
+                } catch (UnreadableException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    System.out.println(getAID().getLocalName() + " ping:" + msg.getContentObject().toString());
+                } catch (UnreadableException e) {
+                    e.printStackTrace();
+                }
             }
             else {
                 block();
@@ -109,7 +144,6 @@ public class Exolorer extends Agent {
                 order.setConversationId("sample-delivery");
                 order.setReplyWith("delivery" + System.currentTimeMillis());
                 myAgent.send(order);
-
 
             } else if (hasSample && motherShipDistance > 0) {
                 move(goToMothership());

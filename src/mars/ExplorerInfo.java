@@ -1,9 +1,11 @@
 package mars;
 
+import java.io.Serializable;
+
 /**
  * Created by Adam on 2015-09-15.
  */
-public class ExplorerInfo {
+public class ExplorerInfo implements Serializable{
 
     public boolean foundMineral;
     public Double distance;
@@ -13,5 +15,9 @@ public class ExplorerInfo {
         this.foundMineral = foundMineral;
         this.distance = distance;
         this.angle = angle;
+    }
+
+    public String toString(){
+        return "info: " + distance + " / " + angle;
     }
 }

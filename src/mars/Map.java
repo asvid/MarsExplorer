@@ -132,6 +132,20 @@ public class Map {
         return explorerInfo;
     }
 
+    public static ExplorerInfo getExplorerInfo(String name){
+        int[] curPos = Controller.agentMapList.get(name);
+
+        Double angle = Math.toDegrees(Math.atan2(curPos[1] - middle, curPos[0] - middle));
+        angle += 90;
+        if (angle < 0) {
+            angle += 360;
+        }
+        Double dist = sqrt(pow((curPos[0] - middle), 2) + pow((curPos[1] - middle), 2));
+        ExplorerInfo explorerInfo = new ExplorerInfo(foundSample(name), dist, angle);
+
+        return explorerInfo;
+    }
+
     public static boolean foundSample(String name) {
         boolean founded = false;
         int[] curPos = Controller.agentMapList.get(name);
